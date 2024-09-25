@@ -44,6 +44,7 @@ function App() {
             <div className={`App__container`}>
                json : {tg.initData.user}
             </div>
+
             {loading ? (
                 <div className="loader">11. Loading user info...</div>
             ) : user ? (
