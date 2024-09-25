@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useTelegram } from '@telegram-mini-apps/js'; // Importing useTelegram
 
+import './App.css';
+
 function App() {
     const { WebApp } = useTelegram(); // Using useTelegram hook
     const [user, setUser] = useState(null);
