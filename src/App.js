@@ -38,6 +38,7 @@ function App() {
         window.Telegram?.WebApp.close(); // Optional chaining
     };
 
+
     return (
         <div className={`App ${theme}`}>
             <div className={`App__container`}>
