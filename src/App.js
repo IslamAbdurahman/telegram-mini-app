@@ -26,13 +26,13 @@ function App() {
         <div className={`App ${theme}`}>
             {user ? (
                 <div>
-                    <h1>Welcome {user.first_name}!</h1>
+                    <h1>1122. Welcome {user.first_name}!</h1>
                     <p>Your Telegram ID: {user.id}</p>
                     <button onClick={closeApp}>Close Mini App</button>
                 </div>
             ) : (
                 <div>
-                    <h1>Loading user info...</h1>
+                    <h1>1122. Loading user info...</h1>
                 </div>
             )}
         </div>
