@@ -1,40 +1,61 @@
-import React, { useEffect, useState } from 'react';
-import { useTelegram } from '@telegram-mini-apps/js'; // Importing useTelegram
-
+// src/App.js
+import React, {useEffect, useState} from 'react';
 import './App.css';
 
 function App() {
-    const { WebApp } = useTelegram(); // Using useTelegram hook
     const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true);
     const [theme, setTheme] = useState('light');
 
     useEffect(() => {
-        if (WebApp) {
-            // Set user and theme
-            setUser(WebApp.initDataUnsafe.user); // Using initDataUnsafe for now
-            setTheme(WebApp.colorScheme || 'light');
+        const tg = window.Telegram?.WebApp; // Use optional chaining
 
-            // Expand the app and handle the close event
-            WebApp.expand();
-            WebApp.onEvent('mainButtonClicked', () => WebApp.close());
+        if (tg) {
+            // Set user info and theme mode
+            setUser(tg.initDataUnsafe.user);
+            setTheme(tg.colorScheme || 'light'); // Fallback to light theme
+            setLoading(false); // Loading complete
+
+            // Expand the app to full screen
+            tg.expand();
+
+            // Handle the close event
+            tg.onEvent('mainButtonClicked', () => tg.close());
+        } else {
+            // If not running in Telegram, handle accordingly
+            setLoading(false);
+            console.error("Telegram WebApp not found. Make sure the app is running in Telegram.");
         }
-    }, [WebApp]);
+
+        return () => {
+            if (tg) {
+                tg.offEvent('mainButtonClicked');
+            }
+        };
+    }, []);
 
     const closeApp = () => {
-        WebApp?.close(); // Safely close the app
+        window.Telegram?.WebApp.close(); // Optional chaining
     };
 
     return (
         <div className={`App ${theme}`}>
-            {user ? (
+            <div className={`App__container`}>
+               json : {tg.initData.user}
+            </div>
+            {loading ? (
+                <div className="loader">11. Loading user info...</div>
+            ) : user ? (
                 <div>
-                    <h1>1122. Welcome {user.first_name}!</h1>
+                    <h1>Welcome {user.first_name}!</h1>
                     <p>Your Telegram ID: {user.id}</p>
                     <button onClick={closeApp}>Close Mini App</button>
                 </div>
             ) : (
                 <div>
-                    <h1>1122. Loading user info...</h1>
+
+                    <h1>11. Error: User info not available.</h1>
+                    <button onClick={closeApp}>Close Mini App</button>
                 </div>
             )}
         </div>
