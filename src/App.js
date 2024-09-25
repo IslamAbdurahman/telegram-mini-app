@@ -34,6 +34,7 @@ function App() {
     window.Telegram.WebApp.close();
   };
 
+
   return (
       <div className={`App ${theme}`}>
         {loading ? (
