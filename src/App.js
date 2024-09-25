@@ -50,6 +50,7 @@ function App() {
             </div>
         ) : (
             <div>
+
               <h1>11. Error: User info not available.</h1>
               <button onClick={closeApp}>Close Mini App</button>
             </div>
