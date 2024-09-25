@@ -40,9 +40,9 @@ function App() {
 
     return (
         <div className={`App ${theme}`}>
-            {/*<div className={`App__container`}>*/}
-            {/*    {tg.initData.user}*/}
-            {/*</div>*/}
+            <div className={`App__container`}>
+                {tg.initData.user}
+            </div>
             {loading ? (
                 <div className="loader">11. Loading user info...</div>
             ) : user ? (
