@@ -1,14 +1,14 @@
 // src/App.js
 import React, { useEffect, useState } from 'react';
-import './App.css'; // Make sure to import your CSS
+import './App.css';
 
 function App() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [theme, setTheme] = useState('light'); // Default to light theme
+  const [theme, setTheme] = useState('light');
 
   useEffect(() => {
-    const tg = window.Telegram.WebApp;
+    const tg = window.Telegram?.WebApp; // Use optional chaining
 
     if (tg) {
       // Set user info and theme mode
@@ -21,6 +21,10 @@ function App() {
 
       // Handle the close event
       tg.onEvent('mainButtonClicked', () => tg.close());
+    } else {
+      // If not running in Telegram, handle accordingly
+      setLoading(false);
+      console.error("Telegram WebApp not found. Make sure the app is running in Telegram.");
     }
 
     return () => {
@@ -31,9 +35,8 @@ function App() {
   }, []);
 
   const closeApp = () => {
-    window.Telegram.WebApp.close();
+    window.Telegram?.WebApp.close(); // Optional chaining
   };
-
 
   return (
       <div className={`App ${theme}`}>
@@ -47,7 +50,7 @@ function App() {
             </div>
         ) : (
             <div>
-              <h1>Error: User info not available.</h1>
+              <h1>11. Error: User info not available.</h1>
               <button onClick={closeApp}>Close Mini App</button>
             </div>
         )}
