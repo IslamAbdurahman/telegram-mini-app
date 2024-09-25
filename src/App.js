@@ -1,6 +1,5 @@
 import './App.css';
 
-// src/App.js
 import React, { useEffect, useState } from 'react';
 
 function App() {
@@ -8,12 +7,11 @@ function App() {
   const [theme, setTheme] = useState(null);
 
   useEffect(() => {
-    // Check if Telegram WebApp is available
-    const tg = window.Telegram.WebApp;
+    if (typeof window.Telegram !== "undefined" && window.Telegram.WebApp) {
+      const tg = window.Telegram.WebApp;
 
-    if (tg) {
       // Set user info
-      setUser(tg.initDataUnsafe.user);
+      setUser(tg.initDataUnsafe?.user);
 
       // Set theme mode (dark or light)
       setTheme(tg.colorScheme);
@@ -23,17 +21,13 @@ function App() {
 
       // Handle closing the app
       tg.onEvent('mainButtonClicked', () => tg.close());
+    } else {
+      console.warn("Telegram WebApp object is not available. Make sure you're running the app inside Telegram.");
     }
-
-    return () => {
-      if (tg) {
-        tg.offEvent('mainButtonClicked');
-      }
-    };
   }, []);
 
   const closeApp = () => {
-    window.Telegram.WebApp.close();
+    window.Telegram?.WebApp?.close();
   };
 
   return (
@@ -52,4 +46,3 @@ function App() {
 }
 
 export default App;
-
