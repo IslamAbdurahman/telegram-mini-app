@@ -37,7 +37,7 @@ function App() {
   return (
       <div className={`App ${theme}`}>
         {loading ? (
-            <div className="loader">Loading user info...</div>
+            <div className="loader">11. Loading user info...</div>
         ) : user ? (
             <div>
               <h1>Welcome {user.first_name}!</h1>
