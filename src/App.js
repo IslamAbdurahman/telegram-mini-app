@@ -12,7 +12,7 @@ function App() {
 
     if (tg) {
       // Set user info and theme mode
-      setUser(tg.initDataUnsafe.user);
+      setUser(tg.initData.user);
       setTheme(tg.colorScheme || 'light'); // Fallback to light theme
       setLoading(false); // Loading complete
 
